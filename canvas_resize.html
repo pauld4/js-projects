@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Resizing Canvas</title>
+	<style>
+		body {
+            margin: 0;
+            overflow: hidden;
+        }
+	</style>
+</head>
+
+<body>
+	<canvas id="main_canvas"></canvas>
+	<script>
+		document.addEventListener("DOMContentLoaded", () => {
+			const canvas = document.getElementById("main_canvas");
+			const ctx = canvas.getContext("2d");
+			
+			let main_square = {
+				posx: 0,
+				posy: 0,
+				size: 0
+			}
+			
+			function resizeCanvas() {
+				canvas.width = window.innerWidth;
+				canvas.height = window.innerHeight;
+				
+				main_square.size = Math.min(canvas.width,canvas.height); // shape must be square, so make it as large as possible
+				
+				if(canvas.width < canvas.height) { // sizing for mobile devices that are longer than they are wide
+					main_square.posx = 0;
+					main_square.posy = Math.floor((canvas.height - main_square.size) / 2)
+				} else { // sizing for wider screens such as desktops
+					main_square.posx = Math.floor((canvas.width - main_square.size) / 2)
+					main_square.posy = 0;
+				}
+				
+				draw();
+			}
+
+			function draw() {
+				ctx.clearRect(0, 0, canvas.width, canvas.height);
+				
+				// draw blue square
+				ctx.fillStyle = 'blue';
+				ctx.fillRect(main_square.posx, main_square.posy, main_square.size, main_square.size);
+			}
+
+			function mainLoop() {
+				draw();
+				requestAnimationFrame(mainLoop);
+			}
+
+			window.addEventListener("resize", resizeCanvas); // listen for when window is resized
+			
+			canvas.addEventListener("contextmenu", (e) => {
+				e.preventDefault(); // prevent right clicking
+			});
+
+			resizeCanvas();
+			mainLoop();
+		});
+	</script>
+</body>
+</html>
