@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PaulD4 GitHub</title>
+	
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+		
+		canvas {
+			touch-action: none;
+		}
+    </style>
+</head>
+
+<body>
+	<canvas id="main_canvas"></canvas>
+	<script>
+		document.addEventListener("DOMContentLoaded", () => {
+			const canvas = document.getElementById("main_canvas");
+			const ctx = canvas.getContext("2d");
+			const keys = [];
+			
+			const baseWidth = 1920;
+			const baseHeight = 1080;
+			
+			class main_console {
+				constructor() {
+					this.sizeX = 0;
+					this.sizeY = 0;
+					this.posX = 0;
+					this.posY = 0;
+					this.scale = 0;
+				}
+			}
+			
+			let c = new main_console();
+
+			function resizeCanvas() {
+				canvas.width = window.innerWidth;
+				canvas.height = window.innerHeight;
+				
+				let scaleX = canvas.width / baseWidth;
+				let scaleY = canvas.height / baseHeight;
+				c.scale = Math.min(scaleX,scaleY);
+				c.sizeX = baseWidth;
+				c.sizeY = baseHeight;
+				c.posX = (canvas.width / 2) - ((c.sizeX * c.scale) / 2);
+				c.posY = (canvas.height / 2) - ((c.sizeY * c.scale) / 2);
+				
+				draw();
+			}
+
+			function draw() {
+				ctx.clearRect(0, 0, canvas.width, canvas.height);
+				
+				ctx.save();
+				ctx.translate(c.posX,c.posY);
+				ctx.scale(c.scale,c.scale);
+				
+				// draw objects
+				
+				ctx.restore();
+			}
+
+			function mainLoop(currentTime) {
+				// code
+
+				draw();
+				requestAnimationFrame(mainLoop);
+			}
+
+			canvas.addEventListener('click', function(e) {
+				// code
+			});
+
+			canvas.addEventListener('mousemove', (e) => {
+				// code
+			});
+			
+			canvas.addEventListener("contextmenu", function (e) {
+				e.preventDefault();
+			});
+			
+			document.addEventListener("keydown", e => keys[e.code] = true);
+			document.addEventListener("keyup", e => keys[e.code] = false);
+
+			window.addEventListener("resize", resizeCanvas);
+			
+			resizeCanvas();
+			requestAnimationFrame(mainLoop);
+		});
+	</script>
+</body>
+</html>
