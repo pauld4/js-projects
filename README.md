@@ -4,6 +4,8 @@
 
 "prng.js" is a pseudonumber random generator (PRNG). Using a set "seed", "random" numbers can be generated based on the seed. These numbers are the same every time for the same seed. A hashing formula is used along with a Linear Congruential Generator (LCG). More can be read here: https://en.wikipedia.org/wiki/Linear_congruential_generator
 
+"template.html" is an HTML file that is set up to use a scalable canvas element. The canvas is centered in the screen, and will scale based on screen size. To center an element, the X and Y position must be equal to half of the X or Y size, then subtract half of the elements X and Y size.
+
 /CANVAS/
 
 "canvas_resize.html" will draw a blue square on your screen using the JavaScript canvas element. The square will always be centered and take up as much screen space as possible while remaining a square, even on mobile devices with a tall rectangular screen or desktops with a wider rectangular screen. This uses the eventlistener for resize, and executes a function every time the screen is resized. The square is redrawn based on the new size. Try changing the size of your browser window to see how this works. Objects drawn on top of the blue square will need to be individually scaled based on the size of the blue square. This is updated in the next file, "canvas_resize2.html".
